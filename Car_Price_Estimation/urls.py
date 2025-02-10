@@ -25,6 +25,7 @@ urlpatterns = [
 
     # Redirecting to the Admin App
     path('admin/', admin.site.urls),   
+    
 
     # Redirection for Authentication 
     
