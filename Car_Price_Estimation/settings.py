@@ -57,7 +57,7 @@ ROOT_URLCONF = 'Car_Price_Estimation.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"Templets")],
+        'DIRS': [os.path.join(BASE_DIR, "User/Template"), os.path.join(BASE_DIR, "Admin/Template")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,8 +122,11 @@ STATIC_URL = 'static/'
 
 #This is added manually
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,"static")
+    os.path.join(BASE_DIR,"Static")
 ]
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
