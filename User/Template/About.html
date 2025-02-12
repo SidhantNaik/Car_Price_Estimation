@@ -1,0 +1,94 @@
+{% extends "Base.html" %}
+
+{% block title %} About {% endblock title %}
+
+{% block body %}
+
+<h1 class=" text-center">About</h1>
+<div style="border: 1px solid black; box-shadow: black 2px 3px 10px;padding: 7%;">
+    <div id="about" class="about-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-primary">Project Mission</h2>
+                    <p>My project aims to provide accurate and reliable car price predictions to assist buyers and
+                        sellers in making informed decisions. By leveraging advanced algorithms and data analysis, I
+                        strive to ensure that the predictions are as precise as possible.</p>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-primary">About Me</h2>
+                    <p>I am a passionate student specializing in data science and machine learning. This project is a
+                        culmination of my learning and practical application of these concepts.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ml-model-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-primary">Machine Learning Model</h2>
+                    <p>The car price prediction model is built using the <strong>Random Forest Regressor</strong>
+                        algorithm. This ensemble learning method is effective for regression tasks and enhances
+                        prediction accuracy by combining multiple decision trees.</p>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-primary">Accuracy Model</h2>
+                    <p>The model was trained on a diverse dataset containing various features related to car
+                        specifications, market trends, and historical prices. After extensive training and validation,
+                        the model achieved an impressive accuracy of <strong>93.03%</strong>, making it a reliable tool
+                        for predicting car prices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-primary">Contact Me</h2>
+                    <p>If you have any questions or would like to discuss my project, feel free to reach out:</p>
+                    <ul class="list-unstyled">
+                        <li>Email: <a href="sidhantnaik102@gmail.com">sidhantnaik102@gmail.com</a></li>
+                        <li>Phone: <a href="tel:+8483021674">+91 8483021674</a></li>
+                        <li>Location: Kolhapur, Maharashtra</li>
+                    </ul>
+                </div>
+                <div class="col-md-6" style="padding-left: 10%;">
+                    <img src="static/logo.png" alt="My Project Image" class="img-fluid rounded-circle"
+                        style="width: 200px; height: 200px; margin-left: 10%;">
+                    <p class="text-muted">A snapshot of my journey in machine learning.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="cta-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class="text-primary">Get in Touch</h2>
+                    <p>Feel free to reach out to me on social media:</p>
+                    <a href="https://www.instagram.com/sidhant__100?igsh=cDMzZmM2MHlpeTJn" target="_blank"
+                        style="margin: 0 10px;">
+                        <i class="fab fa-instagram" style="font-size: 40px;"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sidhant.naik.1800" target="_blank" style="margin: 0 10px;">
+                        <i class="fab fa-facebook" style="font-size: 40px;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" style="margin: 0 10px;">
+                        <i class="fab fa-linkedin" style="font-size: 40px;"></i>
+                    </a>
+                    <a href="https://github.com/sidhantnaik" target="_blank" style="margin: 0 10px;">
+                        <i class="fab fa-github" style="font-size: 40px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

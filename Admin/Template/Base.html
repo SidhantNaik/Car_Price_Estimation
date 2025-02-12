@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %}</title>
+
+    <link rel="stylesheet" href="/Static/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/css/bootstrap-grid.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar footer navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Car Price Estimation (Admin)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="#">logout</a>
+        </div>
+    </nav>
+
+
+    <!-- This is code for loading animation  -->
+    {% if messages %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-8 col-lg-6">
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        {% block body %}
+
+        {% endblock body %}
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer py-4 ">
+        <div class="container text-center">
+            <p>© 2025 Car Price Estimation | Developed by Sidhant Naik</p>
+            <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script src="/static/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
+</body>

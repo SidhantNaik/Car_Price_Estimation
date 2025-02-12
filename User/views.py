@@ -1,14 +1,14 @@
 from django.shortcuts import render, HttpResponse
 
 def index(request):
-    return HttpResponse("This is Index page.")
+    return render (request, 'Index.html')
 
 
 def feedback(request):
-    return HttpResponse("This is Feedback page.")
+    return render (request, 'Feedback.html')
 
 
 def about(request):
-    return HttpResponse("This is About page.")
+    return render (request, 'About.html')
 
 
