@@ -4,5 +4,167 @@
 
 {% block body %}
 
-<button class="btn btn-primary">hello</button>
+<h1 class="text-info">Car Price Estimation</h1>
+
+<p class="text-muted">Get an accurate Estimation for your car's price based on its details.</p>
+
+<div class="card-body">
+    <form id="estimationForm" action="/" method="post">
+        {% csrf_token %}
+
+        <div class="form-group mb-4">
+            <label for="car_brand" class="form-label">Car Brand</label>
+            <select name="car_brand" class="form-control border-primary">
+                <option value="" disabled selected>Select brand name</option>
+                {% for key, value in car_brands.items %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <!-- Year of Launch -->
+        <div class="form-group mb-4">
+            <label for="year" class="form-label">Select Year</label>
+            <input type="range" name="year" id="year" max="2023" min="1990" class="form-range border-primary" oninput="updateYearValue(this.value)">
+            <small id="year_value" class="form-text text-muted">Year: 1990</small>
+        </div> <br>
+
+        <!-- KM Traveled -->
+        <div class="form-group mb-4">
+            <label for="km" class="form-label">KM Traveled</label>
+            <input type="range" name="km" id="km" max="2500000" min="1" class="form-range border-primary" oninput="updateKmValue(this.value)">
+            <small id="km_value" class="form-text text-muted">KM: 1</small>
+        </div> <br>
+
+        <!-- Fuel Types Dropdown -->
+        <div class="form-group mb-4">
+            <label for="fuel_type" class="form-label">Fuel Type</label>
+            <select class="form-control border-primary" name="fuel_type" id="fuel_type">
+                <option value="" disabled selected>Select fuel type</option>
+                {% for key, value in fuel_types.items %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <!-- Seller Types Dropdown -->
+        <div class="form-group mb-4">
+            <label for="seller_type" class="form-label">Seller Type</label>
+            <select class="form-control border-primary" name="seller_type" id="seller_type">
+                <option value="" disabled selected>Select seller type</option>
+                {% for key, value in seller_types.items %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <!-- Transmissions Dropdown -->
+        <div class="form-group mb-4">
+            <label for="transmission" class="form-label">Transmission</label>
+            <select class="form-control border-primary" name="transmission" id="transmission">
+                <option value="" disabled selected>Select transmission type</option>
+                {% for index, trans in transmissions.items %}
+                <option value="{{ index }}">{{ trans }}</option>
+                {% endfor %}
+            </select> 
+        </div> <br>
+
+        <!-- Owners Dropdown -->
+        <div class="form-group mb-4">
+            <label for="owner" class="form-label">Owner</label>
+            <select class="form-control border-primary" name="owner" id="owner">
+                <option value="" disabled selected>Select owner type</option>
+                {% for index, own in owners.items %}
+                <option value="{{ index }}">{{ own }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <!-- Mileage -->
+        <div class="form-group mb-4">
+            <label for="mileage" class="form-label">Mileage</label>
+            <input type="range" name="mileage" id="mileage" max="50" min="1" class="form-range border-primary" oninput="updateMileageValue(this.value)">
+            <small id="mileage_value" class="form-text text-muted">Mileage: 1</small>
+        </div> <br>
+
+        <!-- Engines Dropdown -->
+        <div class="form-group mb-4">
+            <label for="engine" class="form-label">Engine</label>
+            <select class="form-control border-primary" name="engine" id="engine">
+                <option value="" disabled selected>Select engine type</option>
+                {% for key, value in engines.items %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <!-- Max Power -->
+        <div class="form-group mb-4">
+            <label for="max_pow" class="form-label">Max Power</label>
+            <select class="form-control border-primary" name="max_pow" id="max_pow">
+                <option value="" disabled selected>Select max power</option>
+                {% for key, value in max_power.items %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <!-- Seats -->
+        <div class="form-group mb-4">
+            <label for="seats" class="form-label">Seats</label>
+            <select class="form-control border-primary" name="seats" id="seats">
+                <option value="" disabled selected>Select number of seats</option>
+                {% for key, value in seats.items %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div> <br>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary" id="predictButton">Predict</button>
+        </div>
+    </form>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Estimation Result</h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <p class="mt-2">Predicting car price...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Result Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="card">
+            <div class="card-header bg-info text-white text-center">
+                <h5 class="modal-title">Estimation Result</h5>
+            </div>
+            <div class="card-body text-center">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <h4 id="EstimationResult">Estimated Price: {{estimation}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock body %}
